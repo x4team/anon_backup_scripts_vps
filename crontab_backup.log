@@ -21,7 +21,22 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
 # m h  dom mon dow   command
-# RUN API SCRIPT
+
+# NextCloud Preview
+59 23 * * * sudo -u www-data php /var/www/space.2spades.ru/occ preview:pre-generate
+# Cron NextCloud server
+*/5 * * * * sudo -u www-data php /var/www/space.2spades.ru/cron.php >> /var/log/nextcloud_cron.log
+# Copy xlsx for web api_monitor every 1 min and convert
+#*/10 * * * * cp /var/www/space.2spades.ru/data/anon/files/Documents/accounting.xlsx /var/www/2spades.ru/miner_site/api_monitor_/csv/excel.xlsx && python3 /var/www/2spades.ru/miner_site/api_monitor_/xls2csv.py >> /var/log/xls_csv_cron.log
+*/5 * * * * /var/www/2spades.ru/api_monitor_/run.sh >> /var/log/api_script.log
+# Update Onlyoffice certs 
+3 4 25 */2 * cp /etc/letsencrypt/live/space.2spades.ru/fullchain.pem /app/onlyoffice/DocumentServer/data/certs/onlyoffice.crt >/dev/null 2>&1
+3 4 25 */2 * cp /etc/letsencrypt/live/space.2spades.ru/privkey.pem /app/onlyoffice/DocumentServer/data/certs/onlyoffice.key >/dev/null 2>&1
+3 4 25 */2 * cp /etc/letsencrypt/live/space.2spades.ru/fullchain.pem /app/coturn/docker/coturn/cert.pem
+3 4 25 */2 * cp /etc/letsencrypt/live/space.2spades.ru/privkey.pem /app/coturn/docker/coturn/privkey.pem
+0 4 * * * /usr/local/sbin/boringtun-upgrade &>/dev/null
+# Copy result txt from API to stats
+*/1 * * * * cp /home/nfs/assets_for_api/csv/result_from_odroid.txt /var/www/2spades.ru/stats_spades/csv/result_from_odroid.txt
 
 # RUN MAIN BACKUP ALL SYSTEM
 30 20 * * * /root/backup_scripts/backup_all.sh >> /var/log/backup_main.log
