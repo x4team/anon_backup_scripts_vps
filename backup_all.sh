@@ -12,12 +12,12 @@ FIND="/usr/bin/find"
 CRONTAB="/usr/bin/crontab"
 #RMFIND="/bin/find"
 
-EXCLUDE_CONF="/srv/dev-disk-by-label-DOCUMENTS/anon/odroid/backup/all_system/exclude.files.conf"
+EXCLUDE_CONF="/home/nfs/vps/backup/all_system/exclude.files.conf"
 
 # Store todays date
 NOW=$(date +"%F"_"%H"-"%M")
 BKDIR="monthly"
-BACKUPDIR="/srv/dev-disk-by-label-DOCUMENTS/anon/odroid/backup/all_system/$BKDIR"
+BACKUPDIR="/home/nfs/vps/backup/all_system/$BKDIR"
 #Get the number of the day of the week
 DAY=$(date +%e)
 
@@ -33,7 +33,7 @@ TARDIR="./"
 BFILE="$NOW.tar.gz"
 
 # Store backup path
-LAST_MONTH="/srv/dev-disk-by-label-DOCUMENTS/anon/odroid/backup/all_system/last_month"
+LAST_MONTH="/home/nfs/vps/backup/all_system/last_month"
 
 # make sure backup directory exists
 [ ! -d $BACKUPDIR ] && mkdir -p ${BACKUPDIR}

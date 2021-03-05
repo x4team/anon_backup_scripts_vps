@@ -22,9 +22,9 @@
 # 
 # m h  dom mon dow   command
 # RUN API SCRIPT
-*/8 * * * * /root/get_data/run.sh > /var/log/run_sh.log
+
 # RUN MAIN BACKUP ALL SYSTEM
 30 20 * * * /root/backup_scripts/backup_all.sh >> /var/log/backup_main.log
-55 20 * * * /root/backup_scripts/backup_root.sh >> /var/log/backup_root.log
+55 20 * * * /root/backup_scripts/backup_nextcloud.sh >> /var/log/backup_nextcloud.log
 # RUN SYNC HDD DATA (WITH BACKUPs) TO WASABI BUCKET
-15 21 * * * /usr/bin/rclone --config /srv/dev-disk-by-label-DOCUMENTS/anon/odroid/config/rclone.conf sync /srv/dev-disk-by-label-DOCUMENTS/ wasabi:/odroid/ --progress --log-level INFO --log-file /tmp/wasabi_command_rclone.log >> /var/log/wasabi_cron_log.log
+15 21 * * * /usr/bin/rclone --config /home/nfs/vps/config/rclone.conf sync /home/nfs/vps/backup wasabi:/twospades/ --progress --log-level INFO --log-file /tmp/wasabi_command_rclone.log >> /var/log/wasabi_cron_log.log
