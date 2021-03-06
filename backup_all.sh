@@ -64,7 +64,7 @@ fi
 
 # Backup websever dirs
 #$TAR -zcvf ${BACKUP}/${BFILE} "${DIRS}"
-$TAR  --exclude-from=${EXCLUDE_CONF} --listed-incremental=${SNAPSHOT_FILE} -zcvf ${BACKUPDIR}/${BFILE} -C ${CDDIR} "${TARDIR}"
+$TAR  --exclude-from=${EXCLUDE_CONF} --listed-incremental=${SNAPSHOT_FILE} -zcvfp ${BACKUPDIR}/${BFILE} -C ${CDDIR} "${TARDIR}"
 
 $CRONTAB -l > $BACKUPDIR/crontab_$NOW
 
