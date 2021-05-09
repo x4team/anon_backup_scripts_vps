@@ -60,8 +60,9 @@ if [ -f ${SNAPSHOT_FILE_0} ]; then
 	 cp ${SNAPSHOT_FILE_0} ${SNAPSHOT_FILE}
 fi
 
-# Backup sever dirs
-$TAR zcfp ${BACKUPDIR}/${BFILE} --exclude-from=${EXCLUDE_CONF} --listed-incremental=${SNAPSHOT_FILE} --one-file-system -C / *
+# Backup server dirs
+# You can remove option --ignore-failed-read
+$TAR zcfp ${BACKUPDIR}/${BFILE} --exclude-from=${EXCLUDE_CONF} --listed-incremental=${SNAPSHOT_FILE} --ignore-failed-read --one-file-system -C / *
 
 $CRONTAB -l > $BACKUPDIR/crontab_$NOW
 
