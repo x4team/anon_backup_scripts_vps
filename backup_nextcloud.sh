@@ -1,8 +1,8 @@
 #!/bin/bash
-ENV=/root/.bashrc
-export $(cat /root/.env | xargs)
+#ENV=/root/.bashrc
+export $(cat /root/.env | xargs) #This file contains the variable MYSQLPASSWORD
 NOW=$(date +"%F"_"%H"-"%M")
-BACKUPDIR="/home/nfs/vps/backup/nextcloud/"
+BACKUPDIR="/mnt/sdb1/backups/nextcloud/"
 MYSQLDB="nextcloud"
 MYSQLUSER="nextcloud"
 TARDIR="www"
@@ -17,15 +17,16 @@ SSH="/usr/bin/ssh"
 LOGGER="/bin/logger"
 FIND="/usr/bin/find"
 
+# DOMAIN - Is folder www as WWW for name backup file
 DOMAIN="WWW"
 # Store backup path
-BACKUP="/home/nfs/vps/backup/nextcloud/"
-LAST_MONTH="$BACKUP/last_month"
+BACKUP="/mnt/sdb1/backups/nextcloud/"
+LAST_WEEK="$BACKUP/last_week"
 # Log backup start time in /var/log/messages
 $LOGGER "$0: *** ${DOMAIN} ${BKDIR} Backup started @ $(date) ***"
 
 #Get the number of the day of the month
-DAY=$(date +%d)
+DAY=$(date +%u)
 
 SNAPSHOT_FILE_0="$BACKUP/snapshot_0.snar"
 SNAPSHOT_FILE="$BACKUP/snapshot.snar"
